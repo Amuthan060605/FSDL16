@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+</head>
+<body>
+
+<h2>Simple Calculator</h2>
+<p>Enter two numbers:</p>
+
+<input type="number" id="num1" placeholder="Number 1">
+<input type="number" id="num2" placeholder="Number 2">
+
+<button onclick="calculate()">Calculate</button>
+
+<p id="result"></p>
+
+<script>
+    function calculate() {
+        // Get input values
+        let num1 = parseFloat(document.getElementById("num1").value);
+        let num2 = parseFloat(document.getElementById("num2").value);
+
+        // Using arithmetic operators
+        let sum = num1 + num2;
+        let difference = num1 - num2;
+        let product = num1 * num2;
+        let quotient = num1 / num2;
+
+        // Using comparison operators
+        let isGreater = num1 > num2 ? "Yes" : "No";
+        let isEqual = num1 === num2 ? "Yes" : "No";
+
+        // Display results
+        let resultText = `
+            Sum: ${sum}<br>
+            Difference: ${difference}<br>
+            Product: ${product}<br>
+            Quotient: ${quotient}<br>
+            Is Number 1 greater than Number 2? ${isGreater}<br>
+            Are both numbers equal? ${isEqual}
+        `;
+        
+        document.getElementById("result").innerHTML = resultText;
+    }
+</script>
+
+</body>
+</html>
