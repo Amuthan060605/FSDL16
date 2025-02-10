@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polling System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .poll-container {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .poll-options {
+            margin: 10px 0;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="poll-container">
+        <h2>What is your favorite programming language?</h2>
+        <div class="poll-options">
+            <input type="radio" id="java" name="vote" value="Java">
+            <label for="java">Java</label><br>
+            <input type="radio" id="python" name="vote" value="Python">
+            <label for="python">Python</label><br>
+            <input type="radio" id="cpp" name="vote" value="C++">
+            <label for="cpp">C++</label><br>
+        </div>
+        <button onclick="submitVote()">Vote</button>
+        <div class="result">
+            <h3>Poll Results</h3>
+            <p id="javaResult">Java: 0 votes</p>
+            <p id="pythonResult">Python: 0 votes</p>
+            <p id="cppResult">C++: 0 votes</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize vote counters
+        let votes = {
+            Java: 0,
+            Python: 0,
+            Cpp: 0
+        };
+
+        // Function to handle vote submission
+        function submitVote() {
+            const selectedOption = document.querySelector('input[name="vote"]:checked');
+            if (!selectedOption) {
+                alert("Please select an option to vote!");
+                return;
+            }
+
+            // Increment the vote count for the selected option
+            const choice = selectedOption.value;
+            votes[choice]++;
+
+            // Update the displayed results
+            document.getElementById('javaResult').textContent = `Java: ${votes.Java} votes`;
+            document.getElementById('pythonResult').textContent = `Python: ${votes.Python} votes`;
+            document.getElementById('cppResult').textContent = `C++: ${votes.Cpp} votes`;
+
+            // Deselect all radio buttons
+            document.querySelectorAll('input[name="vote"]').forEach(input => {
+                input.checked = false;
+            });
+
+            alert(`Thank you for voting! You voted for ${choice}`);
+        }
+    </script>
+</body>
+</html>
