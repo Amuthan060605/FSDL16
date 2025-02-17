@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Conditions in India</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #009688;
+        }
+        .weather-card {
+            background-color: #e0f7fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .city-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .temperature {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00796b;
+        }
+        .condition {
+            font-size: 18px;
+            color: #00796b;
+        }
+        .weather-icon {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Weather Conditions in India</h1>
+        
+        <!-- Sample Weather Card for a city -->
+        <div class="weather-card">
+            <div class="city-name">New Delhi</div>
+            <img src="https://openweathermap.org/img/wn/10d.png" alt="Weather Icon" class="weather-icon">
+            <div class="temperature">28°C</div>
+            <div class="condition">Partly Cloudy</div>
+        </div>
+
+        <!-- Sample Weather Card for another city -->
+        <div class="weather-card">
+            <div class="city-name">Mumbai</div>
+            <img src="https://openweathermap.org/img/wn/01d.png" alt="Weather Icon" class="weather-icon">
+            <div class="temperature">32°C</div>
+            <div class="condition">Sunny</div>
+        </div>
+
+        <!-- Sample Weather Card for another city -->
+        <div class="weather-card">
+            <div class="city-name">Bangalore</div>
+            <img src="https://openweathermap.org/img/wn/04d.png" alt="Weather Icon" class="weather-icon">
+            <div class="temperature">24°C</div>
+            <div class="condition">Cloudy</div>
+        </div>
+    </div>
+
+</body>
+</html>

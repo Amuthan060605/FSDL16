@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Delivery App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .restaurant-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .restaurant-item {
+            width: 30%;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .restaurant-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Online Delivery App</h1>
+    </header>
+
+    <nav>
+        <a href="#">Home</a> |
+        <a href="#">Restaurants</a> |
+        <a href="#">Cart</a> |
+        <a href="#">Profile</a>
+    </nav>
+
+    <div class="container">
+        <h2>Featured Restaurants</h2>
+        <div class="restaurant-list">
+            <div class="restaurant-item">
+                <img src="photos/italian.jpg" alt="Restaurant 1">
+                <h3>Restaurant 1</h3>
+                <p>Cuisine: Italian</p>
+                <button>Order Now</button>
+            </div>
+            <div class="restaurant-item">
+                <img src="photos/mexican.jpg" alt="Restaurant 2">
+                <h3>Restaurant 2</h3>
+                <p>Cuisine: Mexican</p>
+                <button>Order Now</button>
+            </div>
+            <div class="restaurant-item">
+                <img src="photos/chinese.jpg" alt="Restaurant 3">
+                <h3>Restaurant 3</h3>
+                <p>Cuisine: Chinese</p>
+                <button>Order Now</button>
+            </div>
+            <div class="restaurant-item">
+                <img src="photos/indian.jpg" alt="Restaurant 4">
+                <h3>Restaurant 4</h3>
+                <p>Cuisine: Indian</p>
+                <button>Order Now</button>
+            </div>
+            <div class="restaurant-item">
+                <img src="photos/japan.jpg" alt="Restaurant 5">
+                <h3>Restaurant 5</h3>
+                <p>Cuisine: Japanese</p>
+                <button>Order Now</button>
+            </div>
+            <div class="restaurant-item">
+                <img src="photos/american.jpg" alt="Restaurant 6">
+                <h3>Restaurant 6</h3>
+                <p>Cuisine: American</p>
+                <button>Order Now</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Online Delivery App</p>
+    </footer>
+
+</body>
+</html>
