@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garbage Waste Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .button {
+            background-color: #009688;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .button:hover {
+            background-color: #00796b;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0f7fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Garbage Waste Calculator</h1>
+    </header>
+
+    <div class="container">
+        <h2>Calculate Your Waste</h2>
+
+        <div class="form-group">
+            <label for="wasteType">Select Type of Waste:</label>
+            <select id="wasteType">
+                <option value="paper">Paper</option>
+                <option value="plastic">Plastic</option>
+                <option value="organic">Organic</option>
+                <option value="metal">Metal</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="bags">Enter Number of Bags:</label>
+            <input type="number" id="bags" min="1" placeholder="Enter number of bags" required>
+        </div>
+
+        <div class="form-group">
+            <label for="weightPerBag">Enter Weight per Bag (kg):</label>
+            <input type="number" id="weightPerBag" min="0.1" step="0.1" placeholder="Enter weight of each bag (in kg)" required>
+        </div>
+
+        <button class="button" onclick="calculateWaste()">Calculate Total Waste</button>
+
+        <div class="result" id="result" style="display: none;">
+            <h3>Total Waste: <span id="totalWaste"></span> kg</h3>
+        </div>
+    </div>
+
+    <script>
+        function calculateWaste() {
+            // Get user input values
+            var wasteType = document.getElementById("wasteType").value;
+            var bags = parseFloat(document.getElementById("bags").value);
+            var weightPerBag = parseFloat(document.getElementById("weightPerBag").value);
+
+            // Validate inputs
+            if (isNaN(bags) || isNaN(weightPerBag) || bags <= 0 || weightPerBag <= 0) {
+                alert("Please enter valid values for bags and weight.");
+                return;
+            }
+
+            // Calculate total waste
+            var totalWaste = bags * weightPerBag;
+
+            // Display the result
+            document.getElementById("totalWaste").textContent = totalWaste.toFixed(2);
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
