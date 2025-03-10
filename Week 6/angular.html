@@ -9,7 +9,7 @@
 <body>
 
     <div ng-controller="examController" class="container">
-        <h1>Exam Application Form</h1>
+        <h1>CET Application Form</h1>
         <form name="examForm" ng-submit="submitForm()">
             <div>
                 <label for="name">Full Name:</label>
@@ -22,9 +22,9 @@
             <div>
                 <label for="course">Select Course:</label>
                 <select id="course" ng-model="applicant.course" required>
-                    <option value="Math">Math</option>
-                    <option value="Science">Science</option>
-                    <option value="History">History</option>
+                    <option value="Mathematics">Math</option>
+                    <option value="Physics">Science</option>
+                    <option value="Chemistry">History</option>
                 </select>
             </div>
             <div>
