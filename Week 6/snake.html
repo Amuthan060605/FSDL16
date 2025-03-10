@@ -6,7 +6,21 @@
   <title>Snake Game</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <style>
-    /* Styles for the game field */
+    /* Basic styles for the game */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .game-container {
+      text-align: center;
+    }
+
     .field {
       width: 300px;
       height: 300px;
@@ -14,9 +28,9 @@
       background-color: #f2f2f2;
       position: relative;
       overflow: hidden;
+      outline: none;
     }
 
-    /* Snake body segments */
     .snake {
       width: 10px;
       height: 10px;
@@ -24,7 +38,6 @@
       position: absolute;
     }
 
-    /* Food */
     .food {
       width: 10px;
       height: 10px;
@@ -32,92 +45,87 @@
       position: absolute;
     }
 
-    /* Score */
     .score {
       font-size: 20px;
       margin-top: 10px;
     }
 
-    /* Button to restart the game */
     button {
       margin-top: 10px;
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body ng-app="snakeGame" ng-controller="GameController">
 
-  <!-- Game Field -->
-  <div class="field" tabindex="0" ng-keydown="changeDirection($event)" ng-focus="focusGame()">
-    <!-- Snake body rendered dynamically using ng-repeat -->
-    <div ng-repeat="segment in snake" class="snake" ng-style="{'left': segment.x + 'px', 'top': segment.y + 'px'}"></div>
-    <!-- Food rendered dynamically -->
-    <div class="food" ng-style="{'left': food.x + 'px', 'top': food.y + 'px'}"></div>
+  <!-- Game Container -->
+  <div class="game-container">
+    <div class="field" tabindex="0" ng-keydown="changeDirection($event)" ng-focus="focusGame()">
+      <!-- Snake body segments rendered dynamically -->
+      <div ng-repeat="segment in snake" class="snake" ng-style="{'left': segment.x + 'px', 'top': segment.y + 'px'}"></div>
+      <!-- Food rendered dynamically -->
+      <div class="food" ng-style="{'left': food.x + 'px', 'top': food.y + 'px'}"></div>
+    </div>
+    <!-- Score Display -->
+    <div class="score">Score: {{score}}</div>
+    <!-- Start Button -->
+    <button ng-click="startGame()">Start Game</button>
   </div>
-
-  <div class="score">
-    Score: {{score}}
-  </div>
-  <button ng-click="startGame()">Start Game</button>
 
   <script>
     var app = angular.module('snakeGame', []);
 
     app.controller('GameController', ['$scope', '$interval', '$document', function($scope, $interval, $document) {
-      // Game state variables
+      // Game state initialization
       $scope.snake = [{ x: 150, y: 150 }];
       $scope.food = { x: 100, y: 100 };
       $scope.direction = 'RIGHT';
       $scope.score = 0;
       $scope.gameInterval = null;
 
-      // Snake movement step (size of one segment)
-      const STEP_SIZE = 10;
-      
-      // Snake game start
+      const STEP_SIZE = 10; // Snake movement step size
+
+      // Start a new game
       $scope.startGame = function() {
         $scope.snake = [{ x: 150, y: 150 }];
         $scope.food = { x: getRandomPosition(), y: getRandomPosition() };
         $scope.direction = 'RIGHT';
         $scope.score = 0;
 
+        // Cancel any ongoing game loop and start a new one
         if ($scope.gameInterval) {
           $interval.cancel($scope.gameInterval);
         }
 
+        // Start the game loop that updates snake position
         $scope.gameInterval = $interval($scope.gameLoop, 100);
       };
 
-      // Change direction based on key press
+      // Handle snake direction change based on keypress
       $scope.changeDirection = function(event) {
         switch (event.keyCode) {
-          case 37: // Left arrow key
-            if ($scope.direction !== 'RIGHT') {
-              $scope.direction = 'LEFT';
-            }
+          case 37: // Left Arrow
+            if ($scope.direction !== 'RIGHT') $scope.direction = 'LEFT';
             break;
-          case 38: // Up arrow key
-            if ($scope.direction !== 'DOWN') {
-              $scope.direction = 'UP';
-            }
+          case 38: // Up Arrow
+            if ($scope.direction !== 'DOWN') $scope.direction = 'UP';
             break;
-          case 39: // Right arrow key
-            if ($scope.direction !== 'LEFT') {
-              $scope.direction = 'RIGHT';
-            }
+          case 39: // Right Arrow
+            if ($scope.direction !== 'LEFT') $scope.direction = 'RIGHT';
             break;
-          case 40: // Down arrow key
-            if ($scope.direction !== 'UP') {
-              $scope.direction = 'DOWN';
-            }
+          case 40: // Down Arrow
+            if ($scope.direction !== 'UP') $scope.direction = 'DOWN';
             break;
         }
       };
 
-      // Game loop to move the snake and update the game state
+      // The main game loop
       $scope.gameLoop = function() {
         let newHead = { x: $scope.snake[0].x, y: $scope.snake[0].y };
 
-        // Move the snake based on the current direction
+        // Move snake based on current direction
         switch ($scope.direction) {
           case 'LEFT':
             newHead.x -= STEP_SIZE;
@@ -133,13 +141,13 @@
             break;
         }
 
-        // Check for collision with walls
+        // Check for wall collisions
         if (newHead.x < 0 || newHead.x >= 300 || newHead.y < 0 || newHead.y >= 300) {
           $scope.endGame();
           return;
         }
 
-        // Check for collision with itself
+        // Check for collision with snake's own body
         for (let i = 1; i < $scope.snake.length; i++) {
           if ($scope.snake[i].x === newHead.x && $scope.snake[i].y === newHead.y) {
             $scope.endGame();
@@ -147,26 +155,25 @@
           }
         }
 
-        // Add new head to the snake
+        // Add the new head to the snake
         $scope.snake.unshift(newHead);
 
         // Check if snake eats food
         if (newHead.x === $scope.food.x && newHead.y === $scope.food.y) {
-          // Increase score and generate new food
-          $scope.score++;
-          $scope.food = { x: getRandomPosition(), y: getRandomPosition() };
+          $scope.score++; // Increase score
+          $scope.food = { x: getRandomPosition(), y: getRandomPosition() }; // Spawn new food
         } else {
-          // Remove the last segment of the snake (if not eating food)
+          // Remove the tail (unless food is eaten)
           $scope.snake.pop();
         }
       };
 
-      // Generate random positions for food
+      // Generate random position for food
       function getRandomPosition() {
-        return Math.floor(Math.random() * 30) * STEP_SIZE; // Random position within 300px (30 steps)
+        return Math.floor(Math.random() * 30) * STEP_SIZE; // Random position in 300px grid (30 steps)
       }
 
-      // End the game
+      // End the game if snake hits wall or itself
       $scope.endGame = function() {
         if ($scope.gameInterval) {
           $interval.cancel($scope.gameInterval);
@@ -174,16 +181,15 @@
         alert('Game Over! Final Score: ' + $scope.score);
       };
 
-      // Focus the game field to listen for key events
+      // Focus on game field to capture key events
       $scope.focusGame = function() {
         document.querySelector('.field').focus();
       };
 
-      // Initial focus on the game field
+      // Focus game field when page loads
       $document.ready(function() {
         $scope.focusGame();
       });
-
     }]);
   </script>
 </body>
