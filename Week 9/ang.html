@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="studentApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Records</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include AngularJS -->
+    <script src="https://code.angularjs.org/1.8.2/angular.min.js"></script>
+    <!-- Include your main JS file -->
+    <script src="app.js"></script>
+</head>
+<body>
+    <div class="container" ng-controller="studentController">
+        <h1>Student Records</h1>
+
+        <!-- Form to add student -->
+        <form ng-submit="addStudent()">
+            <label>Name:</label>
+            <input type="text" ng-model="student.name" required placeholder="Enter student name" />
+            <label>Age:</label>
+            <input type="number" ng-model="student.age" required placeholder="Enter student age" />
+            <label>Grade:</label>
+            <input type="text" ng-model="student.grade" required placeholder="Enter student grade" />
+            <button type="submit">Add Student</button>
+        </form>
+
+        <h2>Student List</h2>
+        <ul>
+            <li ng-repeat="student in students">
+                {{student.name}} ({{student.age}}) - Grade: {{student.grade}}
+                <button ng-click="deleteStudent($index)">Delete</button>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
