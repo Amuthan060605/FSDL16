@@ -1,0 +1,40 @@
+// app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  message: string = ''; // Declare message variable to bind with input field
+}
+
+
+<!-- app.component.html -->
+<div style="text-align: center;">
+    <h1>Angular Hello World</h1>
+    <input [(ngModel)]="message" placeholder="Type something here" style="padding: 10px;"/>
+    <p>Your message: {{ message }}</p>
+  </div>
+
+  // app.module.ts
+  import { NgModule } from '@angular/core';
+  import { BrowserModule } from '@angular/platform-browser';
+  import { FormsModule } from '@angular/forms';  // Import FormsModule for two-way data binding
+  
+  import { AppComponent } from './app.component';
+  
+  @NgModule({
+    declarations: [
+      AppComponent
+    ],
+    imports: [
+      BrowserModule,
+      FormsModule  // Add FormsModule here to enable two-way binding
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
+  })
+  export class AppModule { }
+  
