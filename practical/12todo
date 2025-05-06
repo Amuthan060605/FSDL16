@@ -1,0 +1,126 @@
+import React, { useState, useEffect } from 'react';
+
+function App() {
+  // State to store the to-do list items
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState('');
+
+  // Load saved todos from localStorage when the app starts
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+    setTodos(storedTodos);
+  }, []);
+
+  // Save todos to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  // Handle the change in input field
+  const handleInputChange = (e) => {
+    setNewTodo(e.target.value);
+  };
+
+  // Add a new to-do
+  const handleAddTodo = () => {
+    if (newTodo.trim()) {
+      setTodos([...todos, newTodo]);
+      setNewTodo('');
+    }
+  };
+
+  // Delete a to-do
+  const handleDeleteTodo = (index) => {
+    const updatedTodos = todos.filter((_, i) => i !== index);
+    setTodos(updatedTodos);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1>React To-Do List</h1>
+      
+      <div style={styles.inputContainer}>
+        <input
+          type="text"
+          value={newTodo}
+          onChange={handleInputChange}
+          style={styles.input}
+          placeholder="Enter new task"
+        />
+        <button onClick={handleAddTodo} style={styles.button}>Add Todo</button>
+      </div>
+
+      <ul style={styles.todoList}>
+        {todos.map((todo, index) => (
+          <li key={index} style={styles.todoItem}>
+            <span>{todo}</span>
+            <button
+              onClick={() => handleDeleteTodo(index)}
+              style={styles.deleteButton}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Styles for the app
+const styles = {
+  container: {
+    maxWidth: '600px',
+    margin: '0 auto',
+    padding: '20px',
+    textAlign: 'center',
+    backgroundColor: '#f9f9f9',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  inputContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '20px',
+  },
+  input: {
+    padding: '10px',
+    fontSize: '16px',
+    width: '300px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+    marginRight: '10px',
+  },
+  button: {
+    padding: '10px 20px',
+    fontSize: '16px',
+    backgroundColor: '#28a745',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
+  todoList: {
+    listStyleType: 'none',
+    padding: '0',
+  },
+  todoItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '10px',
+    padding: '10px',
+    backgroundColor: '#f1f1f1',
+    borderRadius: '5px',
+  },
+  deleteButton: {
+    backgroundColor: '#dc3545',
+    color: '#fff',
+    border: 'none',
+    padding: '5px 10px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
+};
+
+export default App;
